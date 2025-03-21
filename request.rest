@@ -1,0 +1,96 @@
+
+###
+
+GET http://localhost:6000/posts
+
+###
+
+GET http://localhost:6000/posts?sender=Eden2
+
+###
+
+GET http://localhost:6000/posts/674f2e9e2e5029fe9e1c5090
+
+###
+
+POST http://localhost:6060/posts
+Content-Type: application/json
+
+{
+    "title": "My First Post",
+    "content": "This is my first post",
+    "sender": "Eden2"
+}
+
+###
+
+PUT http://localhost:6000/posts/674ef6d5be19c75779e7c610
+Content-Type: application/json
+
+{
+    "sender": "Eden",
+    "title": "My Second Post",
+    "content": "This is my second post"
+}
+
+###
+//all comments
+GET http://localhost:6000/comments
+
+
+###
+
+POST http://localhost:4000/comments
+Content-Type: application/json
+
+{
+  "comment": "This is a new comment",
+  "author": "Yoav",
+  "postId": "674f35a7068ce58ca42a98c2"
+}
+
+###
+//get comment by pot id
+GET http://localhost:6000/comments?postId=674f2e9e2e5029fe9e1c5090
+
+
+### 
+//Update a comment
+PUT http://localhost:6000/comments/674f358e068ce58ca42a98be
+Content-Type: application/json
+
+{
+  "comment": "Updated comment",
+  "author": "Yoav"
+}
+
+### 
+//Delete a comment
+DELETE http://localhost:6000/comments/674f358e068ce58ca42a98be
+
+###
+POST http://localhost:6000/auth/login
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "test"
+}
+
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "test",
+}
+
+###
+POST http://localhost:6000/auth/logout
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "test",
+}
