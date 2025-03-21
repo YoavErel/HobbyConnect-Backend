@@ -18,34 +18,23 @@ import commentsModel from "../models/comments_model";
  *     Comment:
  *       type: object
  *       required:
- *         - id
+ *         - sender
  *         - postId
  *         - content
- *         - author
- *         - createdAt
  *       properties:
- *         id:
- *           type: string
- *           description: The auto-generated id of the comment
  *         postId:
  *           type: string
  *           description: The id of the post the comment belongs to
  *         content:
  *           type: string
  *           description: The content of the comment
- *         author:
+ *         sender:
  *           type: string
  *           description: The author of the comment
- *         createdAt:
- *           type: string
- *           format: date-time
- *           description: The date and time the comment was created
  *       example:
- *         id: d5fE_asz
- *         postId: 5f8d0d55b54764421b7156c7
+ *         sender: bob@gmail.com
+ *         postId: "67dd57f0fc9b27ec788cc3c4"
  *         content: This is a comment
- *         author: John Doe
- *         createdAt: 2023-10-01T12:34:56Z
  */
 
 /**
@@ -106,6 +95,8 @@ router.get("/:id", (req, res) => {
  * /comments:
  *   post:
  *     summary: Create a new comment
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Comments]
  *     requestBody:
  *       required: true
@@ -132,6 +123,8 @@ router.post("/", authMiddleware, commentsController.createItem);
  * /comments/{id}:
  *   put:
  *     summary: Update an existing comment
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Comments]
  *     parameters:
  *       - in: path
@@ -169,27 +162,35 @@ router.put("/:id", authMiddleware, (req: Request, res: Response) => {
  * /comments/{id}:
  *   delete:
  *     summary: Delete a comment
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Comments]
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
  *         description: The comment ID
  *     responses:
  *       200:
- *         description: The deleted comment
+ *         description: The comment was deleted successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Comment'
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Comment deleted successfully
  *       400:
  *         description: Bad request
  *       401:
  *         description: Unauthorized
  *       404:
  *         description: Comment not found
+ *       500:
+ *         description: Internal server error
  */
 router.delete("/:id", async (req, res) => {
   try {

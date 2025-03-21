@@ -27,7 +27,7 @@ import postModel from "../models/posts_model";
  *       example:
  *         title: "Sample Post"
  *         content: "This is a sample post content."
- *         sender: "asdfasdfasdfasdfas"
+ *         sender: "bob@gmail.com"
  */
 
 /**
@@ -327,44 +327,7 @@ router.get(
  *         description: Internal server error
  */
 router.put("/:id/like", postController.toggleLike); // ✅ Like/Unlike route
-/**
- * @swagger
- * /posts/suggestions:
- *   post:
- *     summary: Get post suggestions
- *     description: Retrieves post suggestions based on the provided criteria
- *     tags:
- *       - Posts
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               criteria:
- *                 type: string
- *                 description: The criteria for post suggestions
- *             required:
- *               - criteria
- *     responses:
- *       '200':
- *         description: A list of post suggestions
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Post'
- *       '400':
- *         description: Invalid input
- *       '401':
- *         description: Unauthorized
- *       '500':
- *         description: Internal server error
- */
+
 router.post("/suggestions", postController.getPostSuggestions);
 
 export default router;
