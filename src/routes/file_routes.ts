@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
 import multer from "multer";
-import user_model from "../models/user_model";
 import path from "path";
 import fs from "fs";
 

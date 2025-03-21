@@ -241,7 +241,7 @@ router.get("/users/:id", authController.getbyId);
  * @swagger
  * /auth/users/{id}:
  *   put:
- *     summary: Update user by ID
+ *     summary: Update users name and Bio by ID
  *     tags: [Users]
  *     parameters:
  *       - in: path
