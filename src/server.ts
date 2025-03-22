@@ -33,12 +33,13 @@ app.use((req, res, next) => {
   next();
 });
 const delay = (req: Request, res: Response, next: NextFunction) => {
-  const d = new Promise<void>((r) => setTimeout(() => r(), 2000));
-  d.then(() => next());
-  next();
+  if (process.env.NODE_ENV === "test") {
+    return next();
+  }
+  setTimeout(() => next(), 500);
 };
 
-app.use("/posts", delay, postRoutes);
+app.use("/posts", postRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/comments", delay, commentRoutes);
 app.use("/auth", delay, authRoutes);
@@ -56,7 +57,11 @@ const options = {
       version: "1.0.0",
       description: "REST server including authentication using JWT",
     },
-    servers: [{ url: "http://localhost:" + process.env.PORT }],
+    servers: [
+      { url: "http://localhost:" + process.env.PORT },
+      { url: "http://10.10.246.49" },
+      { url: "https://10.10.246.49" },
+    ],
   },
   apis: ["./src/routes/*.ts"],
 };
