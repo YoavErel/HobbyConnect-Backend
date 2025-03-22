@@ -67,7 +67,7 @@ router.post(
         return;
       }
 
-      const fileUrl = `http://localhost:6060/files/uploads/${req.file.filename}`; // Ensure correct URL
+      const fileUrl = `http://node49.cs.colman.ac.il/files/uploads/${req.file.filename}`; // Ensure correct URL
       console.log("File uploaded:", fileUrl);
 
       res.status(200).json({ url: fileUrl });
